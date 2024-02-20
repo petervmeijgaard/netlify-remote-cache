@@ -1,6 +1,18 @@
-[[edge_functions]]
-  function = "index"
-  path = "/*"
+[functions]
+directory = "functions/"
+
+[build]
+publish = "build"
+functions = "functions"
+command = "pnpm run build"
 
 [dev]
+functions = "functions"
+command = "pnpm run dev:build"
 autoLaunch = false
+
+[[redirects]]
+force = true
+from = "/*"
+to = "/.netlify/functions/lambda/:splat"
+status = 200
