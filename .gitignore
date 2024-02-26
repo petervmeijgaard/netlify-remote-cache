@@ -1,6 +1,6 @@
 # Folders
 .netlify
-lib
+dist
 
 # Environment variables
 .env

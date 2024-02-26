@@ -1,17 +1,13 @@
 [functions]
-directory = "functions/"
+included_files = ["dist/**/*"]
 
 [build]
-functions = "functions"
+base = "/"
 command = "pnpm run build"
+publish = "dist"
 
 [dev]
-functions = "functions"
-command = "pnpm run dev:build"
+command = "pnpm run dev"
+port = 8888
+publish = "dist"
 autoLaunch = false
-
-[[redirects]]
-force = true
-from = "/*"
-to = "/.netlify/functions/lambda/:splat"
-status = 200
