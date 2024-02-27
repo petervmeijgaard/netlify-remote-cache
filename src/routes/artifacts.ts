@@ -1,17 +1,11 @@
 import { bearerAuth } from "hono/bearer-auth";
-import { Hono, type Next, type Context } from "hono";
+import { Hono } from "hono";
 import { env } from "../env";
 import { getStore } from "@netlify/blobs";
 
 const app = new Hono();
 
-app.use("/*", (c: Context, next: Next) => {
-	const { TURBO_TOKEN: token } = env;
-
-	if (!token) throw new Error("Missing token");
-
-	return bearerAuth({ token })(c, next);
-});
+app.use("/*", bearerAuth({ token: env.TURBO_TOKEN }));
 
 app.post("/events", (c) => c.text("", 200));
 

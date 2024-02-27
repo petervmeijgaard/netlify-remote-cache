@@ -1,17 +1,11 @@
 import { bearerAuth } from "hono/bearer-auth";
-import { type Context, Hono, type Next } from "hono";
+import { Hono } from "hono";
 import { env } from "../env";
 import { getStore } from "@netlify/blobs";
 
 const app = new Hono();
 
-app.use("/*", (c: Context, next: Next) => {
-	const { ADMIN_TOKEN: token } = env;
-
-	if (!token) throw new Error("Missing token");
-
-	return bearerAuth({ token })(c, next);
-});
+app.use("/*", bearerAuth({ token: env.ADMIN_TOKEN }));
 
 app.delete("/prune/:teamId", async (c) => {
 	const { teamId } = c.req.param();
